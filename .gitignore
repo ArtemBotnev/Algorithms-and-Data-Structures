@@ -1,0 +1,12 @@
+# Output package #
+###################
+/target
+
+# Compiled source #
+###################
+*.class
+
+# Idea generated files #
+###################
+*.iml
+*.idea
