@@ -72,6 +72,64 @@ fun quickSort(array: Array<Int>): Array<Int> {
 }
 
 /**
+ * sorts array by merge sort algorithm
+ *
+ * @param array which isn't sorted
+ * @return sorted array
+ */
+fun mergeSort(array: Array<Int>) {
+    /**
+     * merges two arrays
+     *
+     * @param ar1 first array
+     * @param ar2 second array
+     * @return array that is the result of merge ar1 and ar2
+     */
+    fun merge(ar1: Array<Int>, ar2: Array<Int>): Array<Int> {
+        val resSize = ar1.size + ar2.size
+        val arRes = Array(resSize) { 0 }
+        var index1 = 0
+        var index2 = 0
+
+        for (i in 0..(resSize - 1)) {
+            arRes[i] = when {
+                index1 == ar1.size -> ar2[index2++]
+                index2 == ar2.size -> ar1[index1++]
+                else ->
+                    if (ar1[index1] < ar2[index2]) ar1[index1++] else ar2[index2++]
+            }
+        }
+
+        return arRes
+    }
+
+    /**
+     * splits source array into left and right part of it
+     * does the same recursively until size of parts 1
+     *
+     * @param arr source array
+     * @return final result
+     */
+    fun sort(arr: Array<Int>): Array<Int> {
+        if (arr.size < 2) return arr
+
+        val middle = arr.size shr 1
+
+        // create copies of left and right parts
+        val ar1 = Arrays.copyOfRange(arr, 0, middle)
+        val ar2 = Arrays.copyOfRange(arr, middle, arr.size)
+
+        val a = sort(ar1)
+        val b = sort(ar2)
+
+        return merge(a, b)
+    }
+
+    println("Merge sort: ")
+    println(Arrays.toString(sort(array)))
+}
+
+/**
  * just swaps two elements of array
  *
  * @param ar array
