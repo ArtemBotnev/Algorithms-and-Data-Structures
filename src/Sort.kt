@@ -20,6 +20,29 @@ fun bubbleSort(array: Array<Int>): Array<Int> {
 }
 
 /**
+ * sorts array by selection sort algorithm
+ *
+ * @param array which isn't sorted
+ * @return sorted array
+ */
+fun selectSort(array: Array<Int>): Array<Int> {
+    for(j in 0 until array.size - 1) {
+        var min = array[j]
+        for (i in j + 1 until array.size)
+            if (min > array[i])
+                min = array[i]
+
+        array[j] = min
+    }
+
+    println("Selection sort:")
+    println(Arrays.toString(array))
+    println()
+
+    return array
+}
+
+/**
  * sorts array by quick sort algorithm
  *
  * @param array which isn't sorted
