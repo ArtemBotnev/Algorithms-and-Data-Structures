@@ -5,6 +5,8 @@ fun main(args: Array<String>) {
     bubbleSort(array)
     // apply selection sort
     selectSort(array)
+    // apply insert sort
+    insertSort(array)
     // apply quick sort
     quickSort(array)
     // apply merge sort

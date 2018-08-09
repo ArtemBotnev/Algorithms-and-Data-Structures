@@ -1,48 +1,6 @@
 import java.util.*
 
 /**
- * sorts array by bubble sort algorithm
- *
- * @param array which isn't sorted
- * @return sorted array
- */
-fun bubbleSort(array: Array<Int>): Array<Int> {
-    for (j in array.size - 1 downTo 0)
-        for (i in 0 until j)
-            if (array[i] > array[i + 1])
-                swap(array, i, i + 1)
-
-    println("Bubble sort:")
-    println(Arrays.toString(array))
-    println()
-
-    return array
-}
-
-/**
- * sorts array by selection sort algorithm
- *
- * @param array which isn't sorted
- * @return sorted array
- */
-fun selectSort(array: Array<Int>): Array<Int> {
-    for(j in 0 until array.size - 1) {
-        var min = array[j]
-        for (i in j + 1 until array.size)
-            if (min > array[i])
-                min = array[i]
-
-        array[j] = min
-    }
-
-    println("Selection sort:")
-    println(Arrays.toString(array))
-    println()
-
-    return array
-}
-
-/**
  * sorts array by quick sort algorithm
  *
  * @param array which isn't sorted
