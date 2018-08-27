@@ -1,3 +1,5 @@
+package sorting
+
 import java.util.*
 
 /**
@@ -29,7 +31,7 @@ fun quickSort(array: Array<Int>): Array<Int> {
             while (arr[left] < pivot) left++
             // check that elements on the right of pivot are bigger than pivot
             while (arr[right] > pivot) right--
-            // if not, swap it
+            // if not, sorting.swap it
             if (left <= right) {
                 swap(arr, left, right)
                 left++
