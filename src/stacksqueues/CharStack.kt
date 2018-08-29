@@ -4,6 +4,7 @@ package stacksqueues
  * Model of stack
  */
 class CharStack(private val size: Int) {
+
     private val stackArray = Array(size) { '0' }
     private var top = -1
 
@@ -22,7 +23,7 @@ class CharStack(private val size: Int) {
     fun pop() = stackArray[top--]
 
     /**
-     * just get element, without moved top
+     * just gets element, without moved top
      *
      * @return received element
      */
