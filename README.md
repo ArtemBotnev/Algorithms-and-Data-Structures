@@ -1,6 +1,6 @@
 # Algorithms and Data Structures
-##Packages:
-###Sorting algorithms
+## Packages:
+### Sorting algorithms
 * Simple algorithms
     * Bubble sort
     * Selection sort
@@ -8,7 +8,6 @@
 * Advanced algorithms
     * Quick sort
     * Merge sort
-###Stacks and Queues
+### Stacks and Queues
 * Stack example "string revers"
 * Queue example with integer data
-* Brackets checker example (using stack)
