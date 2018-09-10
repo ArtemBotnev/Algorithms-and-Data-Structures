@@ -11,3 +11,4 @@
 ###Stacks and Queues
 * Stack example "string revers"
 * Queue example with integer data
+* Brackets checker example (using stack)

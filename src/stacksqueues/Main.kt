@@ -3,9 +3,12 @@ package stacksqueues
 fun main(args: Array<String>) {
     stackExample()
     queueExample()
+    checkBrackets()
 }
 
-fun stackExample() {
+private fun stackExample() {
+    println("Revers string with stack:")
+    println()
     //reverse the string with a stack
     val string = "Kotlin is island"
     val stack = CharStack(string.length)
@@ -16,7 +19,9 @@ fun stackExample() {
     repeat(2) { println() }
 }
 
-fun queueExample() {
+private fun queueExample() {
+    println("Queue example:")
+    println()
     // create int array
     val intArray = Array(15) { it * 3 - (it.rem(5)) }
     println(intArray.joinToString(separator = ", ") { it.toString() })
@@ -45,4 +50,19 @@ fun queueExample() {
     queue.insert(85)
     queue.insert(63)
     println(queue.remove())
+    println()
+}
+
+private fun checkBrackets() {
+    println("Check brackets with stack:")
+    println()
+
+    var message: String
+
+    message = BracketsChecker.check("} Hello!")
+    println(message)
+    message = BracketsChecker.check("[This (is new] sentence)")
+    println(message)
+    message = BracketsChecker.check("{Here [is no errors (with brackets)]}")
+    println(message)
 }
