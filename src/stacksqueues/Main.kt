@@ -20,13 +20,13 @@ private fun stackExample() {
 }
 
 private fun queueExample() {
-    println("Queue example:")
+    println("ArrayQueue example:")
     println()
     // create int array
     val intArray = Array(15) { it * 3 - (it.rem(5)) }
     println(intArray.joinToString(separator = ", ") { it.toString() })
 
-    val queue = Queue(intArray.size)
+    val queue = ArrayQueue(intArray.size)
     // put all string to queue
     intArray.forEach { queue.insert(it) }
 

@@ -1,35 +1,22 @@
 package stacksqueues
 
 /**
- * Model of stack
+ * Array stack implementation
  */
-class CharStack(private val size: Int) {
+class CharStack(private val size: Int): Stack<Char> {
 
     private val stackArray = Array(size) { '0' }
     private var top = -1
 
-    /**
-     * pushes element to stack and moved top to up
-     *
-     * @param char element what shout be pushed to stack
-     */
-    fun push(char: Char) = char.also { stackArray[++top] = it }
+    override fun push(char: Char) {
+        char.also { stackArray[++top] = it }
+    }
 
-    /**
-     * gets element from stack and moved top to down
-     *
-     * @return received element
-     */
-    fun pop() = stackArray[top--]
+    override fun pop() = stackArray[top--]
 
-    /**
-     * just gets element, without moved top
-     *
-     * @return received element
-     */
-    fun peek() = stackArray[top]
+    override fun peek() = stackArray[top]
 
-    fun isEmpty() = top == -1
+    override fun isEmpty() = top == -1
 
-    fun isFull() = top == size - 1
+    override fun isFull() = top == size - 1
 }
