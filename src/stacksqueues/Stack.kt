@@ -17,14 +17,14 @@ interface Stack<T> {
      *
      * @return received element
      */
-    fun pop(): T
+    fun pop(): T?
 
     /**
      * just gets element, without moved top
      *
      * @return received element
      */
-    fun peek(): T
+    fun peek(): T?
 
     fun isEmpty(): Boolean
 

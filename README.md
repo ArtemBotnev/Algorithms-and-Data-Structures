@@ -12,3 +12,6 @@
 * Stack example "string revers"
 * Queue example with integer data
 * Brackets checker example (using stack)
+### Linked lists
+* Bind linked list
+* Stack example "string revers" with LinkedStack
