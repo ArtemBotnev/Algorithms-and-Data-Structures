@@ -14,4 +14,7 @@
 * Brackets checker example (using stack)
 ### Linked lists
 * Bind linked list
-* Stack example "string revers" with LinkedStack
+* Linked stack
+    * Stack example "string revers" with LinkedStack
+* Cyclic linked list    
+    * Solution of Josephus Flavius task by CyclicList
