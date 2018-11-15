@@ -18,3 +18,5 @@
     * Stack example "string revers" with LinkedStack
 * Cyclic linked list    
     * Solution of Josephus Flavius task by CyclicList
+### Recursion
+* Example "anagrams"    
