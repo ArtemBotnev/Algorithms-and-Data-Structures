@@ -13,4 +13,6 @@ fun main(args: Array<String>) {
     quickSort(array)
     // apply merge sort
     mergeSort(array)
+    // apply Shell sort
+    shellSort(array)
 }

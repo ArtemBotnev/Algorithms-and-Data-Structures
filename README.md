@@ -8,6 +8,7 @@
 * Advanced algorithms
     * Quick sort
     * Merge sort
+    * Shell sort
 ### Stacks and Queues
 * Stack example "string revers"
 * Queue example with integer data

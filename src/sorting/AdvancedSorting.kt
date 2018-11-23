@@ -110,6 +110,43 @@ fun mergeSort(array: Array<Int>) {
 
     println("Merge sort: ")
     println(Arrays.toString(sort(array)))
+    println()
+}
+
+/**
+ * sorts array by Shell sort algorithm
+ *
+ * @param array which isn't sorted
+ * @return sorted array
+ */
+fun shellSort(array: Array<Int>): Array<Int> {
+    val size = array.size
+    var j: Int
+    var temp: Int
+    var gap = 1
+
+    while (gap <= size / 3) gap = 3 * gap + 1
+
+    while (gap > 0) {
+        for (i in gap until size) {
+            temp = array[i]
+            j = i
+
+            while (j > gap - 1 && array[j - gap] >= temp) {
+                array[j] =  array[j - gap]
+                j -= gap
+            }
+
+            array[j] = temp
+        }
+
+        gap = (gap - 1) / 3
+    }
+
+    println("Shell sort: ")
+    println(Arrays.toString(array))
+
+    return array
 }
 
 /**
