@@ -55,6 +55,75 @@ fun quickSort(array: Array<Int>): Array<Int> {
 }
 
 /**
+ * sorts array by quick sort algorithm with last right element as a pivot
+ *
+ * @param array which isn't sorted
+ * @return sorted array
+ */
+fun rightEdgePivotQuickSort(array: Array<Int>): Array<Int> {
+
+    /**
+     * partitions array or sub array to two part whit elements less than pivot
+     * and elements more than pivot
+     *
+     * @param left - edge array or sub array
+     * @param right - edge array or sub array
+     * @param pivot element
+     * @return index of pivot's final position
+     */
+    fun partition(left: Int, right: Int, pivot: Int): Int {
+        var leftPointer = left - 1
+        var rightPointer = right
+
+        while (true) {
+            // search element more than pivot into left part
+            while (array[++leftPointer] < pivot) {}
+            // search element less than pivot into right part
+            while (rightPointer > 0 && array[--rightPointer] > pivot) {}
+
+            // pointers' intersection
+            if (leftPointer >= rightPointer) {
+                break
+            } else {
+                // replace elements
+                swap(array, leftPointer, rightPointer)
+            }
+        }
+
+        // replace last left element and pivot
+        swap(array, leftPointer, right)
+
+        return leftPointer
+    }
+
+    /**
+     * sorts array
+     *
+     * @param left border in array which should be sorted
+     * @param right border in array which should be sorted
+     */
+    fun sort(left: Int, right: Int) {
+        if (right - left <= 0) return
+
+        // last right element as a pivot
+        val pivot = array[right]
+
+        val part = partition(left, right, pivot)
+
+        sort(left, part - 1)
+        sort(part + 1, right)
+    }
+
+    sort(0, array.size - 1)
+
+    println("Right edge pivot quick sort:")
+    println(Arrays.toString(array))
+    println()
+
+    return array
+}
+
+/**
  * sorts array by merge sort algorithm
  *
  * @param array which isn't sorted

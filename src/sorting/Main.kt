@@ -11,6 +11,8 @@ fun main(args: Array<String>) {
     insertSort(array)
     // apply quick sort
     quickSort(array)
+    // apply right edge pivot quick sort
+    rightEdgePivotQuickSort(array)
     // apply merge sort
     mergeSort(array)
     // apply Shell sort
