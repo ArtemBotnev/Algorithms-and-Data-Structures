@@ -13,6 +13,8 @@ fun main(args: Array<String>) {
     quickSort(array)
     // apply right edge pivot quick sort
     rightEdgePivotQuickSort(array)
+    // apply quick sort with median as a pivot
+    medianQuickSort(array)
     // apply merge sort
     mergeSort(array)
     // apply Shell sort

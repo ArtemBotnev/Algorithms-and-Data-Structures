@@ -124,6 +124,118 @@ fun rightEdgePivotQuickSort(array: Array<Int>): Array<Int> {
 }
 
 /**
+ * sorts array by quick sort algorithm with median as a pivot
+ *
+ * @param array which isn't sorted
+ * @return sorted array
+ */
+fun medianQuickSort(array: Array<Int>): Array<Int> {
+
+    /**
+     * finds median according to 3 points
+     *
+     * @param left - edge array or sub array
+     * @param right - edge array or sub array
+     * @return median
+     */
+    fun getMedian(left: Int, right: Int): Int {
+        val center = (left + right) shr 1
+
+        if (array[left] > array[center]) swap(array, left, center)
+        if (array[left] > array[right]) swap(array, left, right)
+        if (array[center] > array[right]) swap(array, center, right)
+
+        // place median to right edge
+        swap(array, center, right - 1)
+
+        return array[right - 1]
+    }
+
+    /**
+     * partitions array or sub array to two part whit elements less than pivot
+     * and elements more than pivot
+     *
+     * @param left - edge array or sub array
+     * @param right - edge array or sub array
+     * @param pivot element
+     * @return index of pivot's final position
+     */
+    fun partition(left: Int, right: Int, pivot: Int): Int {
+        var leftPointer = left
+        var rightPointer = right - 1
+
+        while (true) {
+            // search element more than pivot into left part
+            while (array[++leftPointer] < pivot) {}
+            // search element less than pivot into right part
+            while (array[--rightPointer] > pivot) {}
+
+            // pointers' intersection
+            if (leftPointer >= rightPointer) {
+                break
+            } else {
+                // replace elements
+                swap(array, leftPointer, rightPointer)
+            }
+        }
+
+        // replace last left element and pivot
+        swap(array, leftPointer, right -1)
+
+        return leftPointer
+    }
+
+    /**
+     * simple insert sort for part of array
+     *
+     * @param left - edge array or sub array
+     * @param right - edge array or sub array
+     */
+    fun insertSort(left: Int, right: Int) {
+        for (j in left + 1..right) {
+            val temp = array[j]
+            var i = j
+            while (i > 0 && array[i - 1] > temp) {
+                array[i] = array[i - 1]
+                i--
+            }
+
+            array[i] = temp
+        }
+    }
+
+    /**
+     * sorts array
+     *
+     * @param left - edge array or sub array
+     * @param right - edge array or sub array
+     */
+    fun sort(left: Int, right: Int) {
+
+        // if amount of elements less than 7 - apply simple sort algorithm
+        if (right - left + 1 < 7) {
+            insertSort(left, right)
+        } else {
+            // median as a pivot
+            val pivot = getMedian(left, right)
+
+            val part = partition(left, right, pivot)
+
+            sort(left, part - 1)
+            sort(part + 1, right)
+        }
+    }
+
+    sort(0, array.size - 1)
+
+    println("Median quick sort:")
+    println(Arrays.toString(array))
+    println()
+
+    return array
+}
+
+/**
  * sorts array by merge sort algorithm
  *
  * @param array which isn't sorted
