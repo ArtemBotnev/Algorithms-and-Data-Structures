@@ -1,26 +1,55 @@
 package sorting
 
+import utils.Timer
 import java.util.*
 
 fun main(args: Array<String>) {
-    // source array
+    // source arrays
     val array = arrayOf(10, 123, 34, 205, 0, 75, 94, 75, -92, 345, 12, 73, 110, 542, 243, 315, -54)
+    val bigArray = Array(5_000) { Random().nextInt(10_000) }
+
     // apply bubble sort
-    bubbleSort(copyFullArray(array))
+    sort(array) { bubbleSort(it) }
+    sort(bigArray) { bubbleSort(it) }
+
     // apply selection sort
-    selectSort(copyFullArray(array))
+    sort(array) { selectSort(it) }
+    sort(bigArray) { selectSort(it) }
+
     // apply insert sort
-    insertSort(copyFullArray(array))
+    sort(array) { insertSort(it) }
+    sort(bigArray) { insertSort(it) }
+
     // apply quick sort
-    quickSort(copyFullArray(array))
+    sort(array) { quickSort(it) }
+    sort(bigArray) { quickSort(it) }
+
     // apply right edge pivot quick sort
-    rightEdgePivotQuickSort(copyFullArray(array))
+    sort(array) { rightEdgePivotQuickSort(it) }
+    sort(bigArray) { rightEdgePivotQuickSort(it) }
+
     // apply quick sort with median as a pivot
-    medianQuickSort(copyFullArray(array))
+    sort(array) { medianQuickSort(it) }
+    sort(bigArray) { medianQuickSort(it) }
+
     // apply merge sort
-    mergeSort(copyFullArray(array))
+    sort(array) { mergeSort(it) }
+    sort(bigArray) { mergeSort(it) }
+
     // apply Shell sort
-    shellSort(copyFullArray(array))
+    sort(array) { shellSort(it) }
+    sort(bigArray) { shellSort(it) }
 }
 
-private fun <T> copyFullArray(a: Array<T>) = Arrays.copyOf(a, a.size)
+private inline fun <T> sort(arr: Array<T>, sortFin: (Array<T>) -> Array<T>) {
+    val timer = Timer()
+
+    val arrCopy = Arrays.copyOf(arr, arr.size)
+    timer.start()
+    sortFin(arrCopy)
+
+    val arraySize = if (arrCopy.size < 1_000) "small" else "big"
+    print("For $arraySize array ")
+    println(timer.stopAndShowTime())
+    println()
+}

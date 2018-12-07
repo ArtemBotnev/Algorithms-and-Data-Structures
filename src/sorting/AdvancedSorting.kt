@@ -49,7 +49,6 @@ fun quickSort(array: Array<Int>): Array<Int> {
 
     println("Quick sort:")
     println(Arrays.toString(array))
-    println()
 
     return array
 }
@@ -118,7 +117,6 @@ fun rightEdgePivotQuickSort(array: Array<Int>): Array<Int> {
 
     println("Right edge pivot quick sort:")
     println(Arrays.toString(array))
-    println()
 
     return array
 }
@@ -230,7 +228,6 @@ fun medianQuickSort(array: Array<Int>): Array<Int> {
 
     println("Median quick sort:")
     println(Arrays.toString(array))
-    println()
 
     return array
 }
@@ -241,7 +238,7 @@ fun medianQuickSort(array: Array<Int>): Array<Int> {
  * @param array which isn't sorted
  * @return sorted array
  */
-fun mergeSort(array: Array<Int>) {
+fun mergeSort(array: Array<Int>): Array<Int> {
     /**
      * merges two arrays
      *
@@ -291,7 +288,8 @@ fun mergeSort(array: Array<Int>) {
 
     println("Merge sort: ")
     println(Arrays.toString(sort(array)))
-    println()
+
+    return array
 }
 
 /**

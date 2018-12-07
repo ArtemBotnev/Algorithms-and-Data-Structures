@@ -16,7 +16,6 @@ fun bubbleSort(array: Array<Int>): Array<Int> {
 
     println("Bubble sort:")
     println(Arrays.toString(array))
-    println()
 
     return array
 }
@@ -39,7 +38,6 @@ fun selectSort(array: Array<Int>): Array<Int> {
 
     println("Selection sort:")
     println(Arrays.toString(array))
-    println()
 
     return array
 }
@@ -64,7 +62,6 @@ fun insertSort(array: Array<Int>): Array<Int> {
 
     println("Insert sort:")
     println(Arrays.toString(array))
-    println()
 
     return array
 }
