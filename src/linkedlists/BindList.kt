@@ -40,5 +40,5 @@ class BindList<T> {
     /**
      * Inner class Link (container for data)
      */
-    inner class Link<T>(val data: T, var next: Link<T>?)
+    private inner class Link<T>(val data: T, var next: Link<T>?)
 }
