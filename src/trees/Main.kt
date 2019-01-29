@@ -1,7 +1,19 @@
 package trees
 
 fun main(args: Array<String>) {
-    fillTreeAndCheckData()
+    val tree = fillTreeAndCheckData()
+    println()
+    tree.deleteItemAndCheck(261)
+    println()
+    tree.deleteItemAndCheck(-100)
+    println()
+    tree.deleteItemAndCheck(7)
+    println()
+    tree.deleteItemAndCheck(1)
+    println()
+    tree.deleteItemAndCheck(357)
+    println()
+    tree.deleteItemAndCheck(507)
 }
 
 /**
@@ -22,16 +34,35 @@ private fun fillTreeAndCheckData() =
                     put(507, "Panama")
                     put(-100, "It's enough")
                 }.apply {
-                    println(get(63))
-                    println(get(507))
-                    println(get(7))
-                    println(get(34))
-                    println(get(357))
-                    println(get(1))
-                    println(get(658))
-                    println(get(261))
-                    println(get(20))
-                    println(get(679))
-                    println(get(-12))
-                    println(get(-100))
+                    printSpecificTree()
                 }
+
+/**
+ * deletes item by its key from binary tree
+ *
+ * @param id(key) of item(node) which will be deleted
+ */
+private fun <T> BinaryTree<T>.deleteItemAndCheck(id: Int) {
+    this.delete(id)
+    this.printSpecificTree()
+}
+
+/**
+ * prints data only from tree in this example
+ */
+private fun <T> BinaryTree<T>.printSpecificTree() {
+    this.apply {
+        println(get(63))
+        println(get(507))
+        println(get(7))
+        println(get(34))
+        println(get(357))
+        println(get(1))
+        println(get(658))
+        println(get(261))
+        println(get(20))
+        println(get(679))
+        println(get(-12))
+        println(get(-100))
+    }
+}

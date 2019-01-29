@@ -20,4 +20,10 @@
 * Cyclic linked list    
     * Solution of Josephus Flavius task by CyclicList
 ### Recursion
-* Example "anagrams"    
+* Example "anagrams"  
+### Trees
+* Binary tree
+    * put function
+    * get function   
+    * delete function 
+    * example of using  
