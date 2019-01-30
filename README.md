@@ -26,4 +26,5 @@
     * put function
     * get function   
     * delete function 
+    * function visualization tree as string
     * example of using  

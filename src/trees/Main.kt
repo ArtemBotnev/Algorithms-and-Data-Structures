@@ -2,18 +2,26 @@ package trees
 
 fun main(args: Array<String>) {
     val tree = fillTreeAndCheckData()
+    println(tree)
+
     println()
     tree.deleteItemAndCheck(261)
+    println(tree)
     println()
     tree.deleteItemAndCheck(-100)
+    println(tree)
     println()
     tree.deleteItemAndCheck(7)
+    println(tree)
     println()
     tree.deleteItemAndCheck(1)
+    println(tree)
     println()
     tree.deleteItemAndCheck(357)
+    println(tree)
     println()
     tree.deleteItemAndCheck(507)
+    println(tree)
 }
 
 /**
@@ -22,16 +30,16 @@ fun main(args: Array<String>) {
 private fun fillTreeAndCheckData() =
         BinaryTree<String>()
                 .apply {
+                    put(261, "Madagascar")
+                    put(507, "Panama")
                     put(7, "Russia")
+                    put(34, "Spain")
                     put(1, "USA")
                     put(658, "Jamaica")
                     put(20, "Egypt")
-                    put(261, "Madagascar")
-                    put(34, "Spain")
                     put(34, "This just for checking duplicates")
                     put(357, "Cyprus")
                     put(679, "Fiji")
-                    put(507, "Panama")
                     put(-100, "It's enough")
                 }.apply {
                     printSpecificTree()
