@@ -9,10 +9,10 @@ import kotlin.math.pow
  * Integer for keys used to simplify
  * Not supports key's duplicates
  */
-class BinaryTree<V> {
+class BinaryTree<T> {
 
     // root node of tree
-    private var root: Node<V>? = null
+    private var root: Node? = null
 
     /**
      * puts new pair (key, value) to tree
@@ -21,12 +21,12 @@ class BinaryTree<V> {
      * @param value ...
      * @return true if operation success, false if there is already this key
      */
-    fun put(key: Int, value: V): Boolean {
+    fun put(key: Int, value: T): Boolean {
         val newNode = Node(key, value)
 
         if (root != null) {
-            var parent: Node<V>
-            var current: Node<V>? = root
+            var parent: Node
+            var current: Node? = root
 
             while (current != null) {
                 parent = current
@@ -68,7 +68,7 @@ class BinaryTree<V> {
      * @return value which corresponds to this key or
      * null if no value corresponds to one
      */
-    fun get(key: Int): V? {
+    fun get(key: Int): T? {
         var current = root
 
         while (current != null && current.key != key) {
@@ -88,7 +88,7 @@ class BinaryTree<V> {
      * @param key of node which will be deleted
      * @return data of deleted node or null if node wasn't found
      */
-    fun delete(key: Int): V? {
+    fun delete(key: Int): T? {
         var current = root
         var parent = root
         var isLeftChild = true
@@ -142,7 +142,7 @@ class BinaryTree<V> {
      * @param node which is deleting
      * @return successor of deleting node
      */
-    private fun getSuccessor(node: Node<V>): Node<V> {
+    private fun getSuccessor(node: Node): Node {
         var parent = node
         var successor = node
         // move to right child
@@ -173,7 +173,7 @@ class BinaryTree<V> {
         var currentLevel = 0
         var maxLevel = 0
 
-        fun <T> stepTo(node: Node<T>?) {
+        fun stepTo(node: Node?) {
             if (node == null) return
 
             currentLevel++
@@ -213,7 +213,7 @@ class BinaryTree<V> {
          * @param vertical position if this node
          * @param horizontal position if this node
          */
-        fun <T> stepTo(node: Node<T>?, vertical: Int, horizontal: Int) {
+        fun stepTo(node: Node?, vertical: Int, horizontal: Int) {
             if (node == null) return
             // to left child
             stepTo(
@@ -250,8 +250,8 @@ class BinaryTree<V> {
     /**
      * Tree's main unit (container for data)
      */
-    private inner class Node<T>(val key: Int, var data: T) {
-        var leftChild: Node<T>? = null
-        var rightChild: Node<T>? = null
+    private inner class Node(val key: Int, var data: T) {
+        var leftChild: Node? = null
+        var rightChild: Node? = null
     }
 }
