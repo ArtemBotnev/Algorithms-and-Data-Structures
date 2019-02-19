@@ -1,6 +1,12 @@
 package trees
 
 fun main(args: Array<String>) {
+    binaryTreeExample()
+    tree234Example()
+}
+
+private fun binaryTreeExample() {
+    println("*** Binary tree ***")
     val tree = fillTreeAndCheckData()
     println(tree)
 
@@ -72,5 +78,38 @@ private fun <T> BinaryTree<T>.printSpecificTree() {
         println(get(679))
         println(get(-12))
         println(get(-100))
+    }
+}
+
+private fun tree234Example() {
+    println("*** Tree 2 3 4 ***")
+    val tree = Tree234<String, Float>()
+
+    // filling tree use String as a keys and Float as a values
+    tree.apply {
+        put("Hello", .073f)
+        put("My", .0456f)
+        put("Dear", .03f)
+        put("Friend", 34.89f)
+        put("I", 95.028f)
+        put("Glad", 4.803f)
+        put("To", 2.3f)
+        put("See", 2.3f)
+        put("You", .0973f)
+        put("Again", .0973f)
+        put("!!!", 284.0f)
+    }.apply {
+        // check what three is working
+        println(get("Glad"))
+        println(get("Hello"))
+        println(get("!!!"))
+        println(get("See"))
+        println(get("Friend"))
+        println(get("I"))
+        println(get("Ha!!!"))
+        println(get("My"))
+        println(get("Again"))
+        println(get("Dear"))
+        println(get("To"))
     }
 }

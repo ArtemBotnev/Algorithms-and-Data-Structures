@@ -14,57 +14,84 @@ class Tree234<K : Comparable<K>, V> {
     private var root = Node()
 
      /**
-     * finds position of data with key K into its node
+      * gets data value - V by its key - K from tree
       *
       * @param key - data key K
-      * @return position of data into node or -1 if there aren't node's children
+      * @return value according this key
+      * or null if tree isn't contains this pair (key value)
      */
-    fun find(key: K): Int {
+    fun get(key: K): V? {
         var currentNode = root
-        var childIndex: Int
+        var dataIndex: Int
 
         while (true) {
-            childIndex = currentNode.getIndex(key)
+            // trying to find data into current node
+            dataIndex = currentNode.getIndex(key)
             when {
-                childIndex != -1 -> return childIndex
-                currentNode.isLeaf -> return -1
+                // success data is into current node
+                dataIndex != -1 -> return currentNode[dataIndex]?.second
+                // this is leaf node and it isn't contains match data
+                currentNode.isLeaf -> return null
+                // go to nex child
                 else -> currentNode = getNextChild(currentNode, key)
             }
         }
     }
 
-    fun put(key: K, value: V) {
+    /**
+     * put pair (key value) into this tree
+     *
+     * @param key - key of data which should be stored
+     * @param value - data which should be stored in this tree
+     */
+    fun put(key: K, value: V?) {
         var currentNode = root
         val data = Pair(key, value)
 
         while (true) {
             if (currentNode.isFull) {
+                // split it
                 split(currentNode)
+                // move up to parent
                 currentNode = currentNode.parent
                 currentNode = getNextChild(currentNode, key)
             } else if (currentNode.isLeaf) {
                 break
             } else {
+                // go toward leaf node
                 currentNode = getNextChild(currentNode, key)
             }
-
-            currentNode.put(data)
         }
+        currentNode.put(data)
     }
 
+    /**
+     * finds child of node which can contains data with key
+     *
+     * @param parent - node child of which should be received
+     * @param key - of data by which can be found appropriate child node
+     * @return child node which best fit of key
+     */
     private fun getNextChild(parent: Node, key: K): Node {
-        for (i in 0 until parent.itemsCount) {
+        var i = 0
+        while (i < parent.itemsCount) {
             // this parent node has at least one child because it isn't leaf
-            if (parent[i].first == null) break
+            if (parent[i] == null) break
 
-            if (key < parent[i].first!!) {
+            if (key < parent[i]?.first!!) {
                 return parent.getChild(i)!!
             }
+            i++
         }
 
-        return parent.getChild(0)!!
+        return parent.getChild(i)!!
     }
 
+    /**
+     * splits node to two and share its data between parent and new right node
+     *
+     * @param node - which should be split
+     */
     private fun split(node: Node) {
         val parent: Node
 
@@ -82,26 +109,28 @@ class Tree234<K : Comparable<K>, V> {
         // in case if this node is a root, we have to create new root
         if(node === root) {
             root = Node()
+            parent = root
             root.bindChild(0, node)
         } else {
             parent = node.parent
-            // put second data item (this node is full all cells aren't null)
-            val index = parent.put(secondData!!)
-            // move parent's items
-            for (i in parent.itemsCount - 1 downTo index) {
-                val childNode = parent.unbindChild(i)
-                parent.bindChild(i, childNode)
-            }
+        }
 
-            // bind new node with parent
-            parent.bindChild(index + 1, newNode)
-            // bind data and child with new node
-            // (this node is full all cells aren't null)
-            newNode.apply {
-                put(thirdData!!)
-                bindChild(0, secondChild)
-                bindChild(1, thirdChild)
-            }
+        // put second data item (this node is full all cells aren't null)
+        val index = parent.put(secondData!!)
+        // move parent's items
+        for (i in parent.itemsCount - 1 downTo index + 1) {
+            val childNode = parent.unbindChild(i)
+            parent.bindChild(i + 1, childNode)
+        }
+
+        // bind new node with parent
+        parent.bindChild(index + 1, newNode)
+        // bind data and child with new node
+        // (this node is full all cells aren't null)
+        newNode.apply {
+            put(thirdData!!)
+            bindChild(0, secondChild)
+            bindChild(1, thirdChild)
         }
     }
 
@@ -110,9 +139,10 @@ class Tree234<K : Comparable<K>, V> {
      */
     private inner class Node {
         // children nodes of this current node
-        private val children: MutableList<Node?> = ArrayList(ORDER)
+        private val children: MutableList<Node?> = MutableList(ORDER) { null }
         // list of data items of this current node
-        private val dataList: MutableList<Pair<K?, V?>> = ArrayList(ORDER - 1)
+        private val dataList: MutableList<Pair<K, V?>?> =
+                MutableList(ORDER - 1) { null }
         // current count of data items
         var itemsCount = 0
             private set
@@ -175,9 +205,9 @@ class Tree234<K : Comparable<K>, V> {
          */
         fun getIndex(key: K): Int {
             for (i in 0 until ORDER - 1) {
-                if (dataList[i].first == null) break
+                if (dataList[i] == null) break
 
-                if (dataList[i].first == key) return i
+                if (dataList[i]?.first == key) return i
             }
 
             return -1
@@ -192,13 +222,13 @@ class Tree234<K : Comparable<K>, V> {
         fun put(data: Pair<K, V?>): Int {
             itemsCount++
 
-            for (i in ORDER - 2 downTo 1) {
-                if (dataList[i].first == null) {
+            for (i in ORDER - 2 downTo 0) {
+                if (dataList[i] == null) {
                     continue
                 } else {
-                    if (data.first < dataList[i].first!!) {
+                    if (data.first < dataList[i]?.first!!) {
                         dataList[i + 1] = dataList[i]
-                    } else if (data.first > dataList[i].first!!) {
+                    } else {
                         dataList[i + 1] = data
                         return i + 1
                     }
@@ -216,11 +246,10 @@ class Tree234<K : Comparable<K>, V> {
          */
         fun delete(): Pair<K, V?>? {
             val data = dataList[itemsCount - 1]
-            dataList[itemsCount - 1] = Pair(null, null)
+            dataList[itemsCount - 1] = null
             itemsCount--
 
-            return if (data.first == null) null
-                else data as Pair<K, V?>
+            return data
         }
     }
 }

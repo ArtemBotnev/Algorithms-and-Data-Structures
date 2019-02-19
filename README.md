@@ -28,3 +28,7 @@
     * delete function 
     * function visualization tree as string
     * example of using  
+* 2-3-4 tree
+    * put function
+    * get function 
+    * example of using
