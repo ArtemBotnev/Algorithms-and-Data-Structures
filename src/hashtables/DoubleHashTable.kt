@@ -8,8 +8,9 @@ package hashtables
  */
 class DoubleHashTable<T>(size: Int) : OpenAddressingHashTable<T>(size) {
 
-    override var probingFunc: (Int, Int) -> Int = { key, keyHash ->
+    override fun probingFunc(key: Int, keyHash: Int): Int {
         val stepSize = 5 - key % 5 // step size by hash function
-        (keyHash + stepSize) % realSize
+
+        return (keyHash + stepSize) % realSize
     }
 }

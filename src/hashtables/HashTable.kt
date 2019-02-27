@@ -25,4 +25,12 @@ interface HashTable<in K, V> {
      * @return value V or null if there isn't value with that key
      */
     fun delete(key: K): V?
+
+    /**
+     * hash function calculates hash for key
+     *
+     * @param key - for which will be calculate hash
+     * @return hash code
+     */
+    fun hash(key: K): Int
 }

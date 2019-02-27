@@ -7,8 +7,5 @@ package hashtables
  * Integer for keys used to simplify
  */
 class LinearHashTable<T>(size: Int) : OpenAddressingHashTable<T>(size) {
-
-    override var probingFunc: (Int, Int) -> Int = { _, keyHash ->
-        (keyHash + 1) % realSize
-    }
+    override fun probingFunc(key: Int, keyHash: Int) = (keyHash + 1) % realSize
 }

@@ -11,6 +11,8 @@ fun main(args: Array<String>) {
          put(32, "in the world")
      }
 
+    println(linearHashTable.count)
+
     println()
     linearHashTable.apply {
         println(get(23))
@@ -30,6 +32,9 @@ fun main(args: Array<String>) {
         delete(25)
         delete(23)
     }
+
+    println()
+    println(linearHashTable.count)
 
     println()
     println(linearHashTable.toString())
