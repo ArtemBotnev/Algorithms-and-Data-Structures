@@ -33,4 +33,14 @@ interface HashTable<in K, V> {
      * @return hash code
      */
     fun hash(key: K): Int
+
+    /**
+     * @return count of elements in table
+     */
+    fun getCount(): Int
+
+    /**
+     * @return count of element to table size
+     */
+    fun getFillFactor(): Float
 }

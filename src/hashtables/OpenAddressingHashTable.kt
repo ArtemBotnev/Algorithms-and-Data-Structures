@@ -5,17 +5,17 @@ package hashtables
  * with collision resolution by open addressing
  *
  * Integer for keys used to simplify
+ * It rewrites previous value when new value with the same key puts into
  */
-abstract class OpenAddressingHashTable<T>(val size: Int)
+abstract class OpenAddressingHashTable<T>(protected val size: Int)
     : HashTable<Int, T> {
 
-    // doubling size for effective open addressing
+    // doubling size and find next prime number for effective open addressing
     protected val realSize = getNextPrimeNumber(size shl 1)
     private val hashArray = Array<Pair<Int, T?>?>(realSize) { null }
 
     // numbers of element in table (should be not more than size)
-    var count: Int = 0
-        private set
+    private var count: Int = 0
 
     /**
      * reflects probing method
@@ -31,7 +31,8 @@ abstract class OpenAddressingHashTable<T>(val size: Int)
 
     override fun put(key: Int, value: T?) {
         if (count == size) throw IndexOutOfBoundsException(
-                "Count of elements must be not more than table size. Size is $size"
+                "Count of elements (OpenAddressingHashTable) " +
+                        "must be not more than table size. Size is $size"
         )
 
         var keyHash = hash(key)
@@ -78,10 +79,15 @@ abstract class OpenAddressingHashTable<T>(val size: Int)
         return null
     }
 
+    override fun getCount() = count
+
+    // can't be more than 0.5 for this table
+    override fun getFillFactor() = count.toFloat() / realSize
+
     override fun toString() = hashArray
             .filterNotNull()
-            .map { it.second }
-//            .map { it?.second ?: "empty" }
+//            .map { it.second }
+            .map { it.second ?: "x" }
             .joinToString(separator = "; ")
 
     /**

@@ -3,8 +3,6 @@ package hashtables
 /**
  * Hash table
  * with collision resolution by open addressing with hash probing
- *
- * Integer for keys used to simplify
  */
 class DoubleHashTable<T>(size: Int) : OpenAddressingHashTable<T>(size) {
 
