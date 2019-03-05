@@ -12,7 +12,9 @@ class ChainHashTable<T>(val size: Int) : HashTable<Int, T> {
 
     // array of lists as items, each list is collection of pair (key, value)
     private val hashArray =
-            Array<MutableList<Pair<Int, T?>>>(size) { mutableListOf() }
+            Array<MutableList<Pair<Int, T?>>>(getNextPrimeNumber(size)) {
+                mutableListOf()
+            }
 
     private var count: Int = 0
 
@@ -61,7 +63,7 @@ class ChainHashTable<T>(val size: Int) : HashTable<Int, T> {
 
     override fun getCount() = count
 
-    // can be more than 1.0 for this table but recommended not more than 3.0
+    // can be more than 1.0 for this table but recommended not more than 2.0
     override fun getFillFactor() = count.toFloat() / size
 
     override fun toString() = hashArray
@@ -70,4 +72,30 @@ class ChainHashTable<T>(val size: Int) : HashTable<Int, T> {
                     "key=${pair.first} value=${pair.second}"
                 }
             }
+
+    /**
+     * finds next prime number after number in arg
+     *
+     * @param number - current number
+     * @return current number if it's a prime or next prime number after it
+     */
+    private fun getNextPrimeNumber(number: Int): Int {
+        // return true if number is prime
+        fun checkNumber(): Boolean {
+            if (number < 2) return false
+
+            for (i in 2..number / 2) {
+                if (number % i == 0) return false
+            }
+
+            return true
+        }
+
+        var result = number
+        if (!checkNumber()) {
+            result = getNextPrimeNumber(number + 1)
+        }
+
+        return result
+    }
 }

@@ -32,3 +32,9 @@
     * put function
     * get function 
     * example of using
+### Hash tables
+* Open addressing hash tables
+    * Linear hash table  
+    * Double hash table 
+* Chain hash table 
+* examples of using

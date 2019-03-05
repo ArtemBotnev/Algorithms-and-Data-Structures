@@ -1,12 +1,18 @@
 package hashtables
 
 fun main(args: Array<String>) {
-     fillAndCheckLinearHashTable()
+    val linearHashTable = LinearHashTable<String>(10)
+    fillTableAndCheck(linearHashTable, "Linear")
+    val doubleHashTable = DoubleHashTable<String>(10)
+    fillTableAndCheck(doubleHashTable, "Double")
+    val chainHashTable = ChainHashTable<String>(8)
+    fillTableAndCheck(chainHashTable, "Chain")
 }
 
-private fun fillAndCheckLinearHashTable() {
-    println("*** Linear Hash Table ***")
-    val linearHashTable = LinearHashTable<String>(10).apply {
+private fun fillTableAndCheck(table: HashTable<Int, String>, title: String) {
+    println()
+    println("*** $title Hash Table ***")
+    table.apply {
         put(54, "There")
         put(23, "are")
         put(12, "a")
@@ -20,11 +26,12 @@ private fun fillAndCheckLinearHashTable() {
         put(732, "them")
     }
 
-    linearHashTable.printTableData()
+    println()
+    table.printTableData()
 
     println()
     println("Get some elements")
-    linearHashTable.apply {
+    table.apply {
         println(get(23))
         println(get(25))
         println(get(12))
@@ -32,11 +39,11 @@ private fun fillAndCheckLinearHashTable() {
         println(get(345))
     }
 
-    linearHashTable.printTableData()
+    table.printTableData()
 
     println()
     println("Delete some elements")
-    linearHashTable.apply {
+    table.apply {
         delete(12)
         delete(643)
         delete(111)
@@ -44,15 +51,11 @@ private fun fillAndCheckLinearHashTable() {
         delete(23)
     }
 
-    linearHashTable.printTableData()
+    table.printTableData()
 }
-
-//private fun <K, V> printTableData(table: HashTable<K, V>) {
-//
-//}
 
 private fun <K, V> HashTable<K, V>.printTableData() {
     println(toString())
     println("Elements count: ${getCount()}")
-    println("Fill factor: ${getFillFactor()}")
+    println(String.format("Fill factor: %.2f", getFillFactor()))
 }

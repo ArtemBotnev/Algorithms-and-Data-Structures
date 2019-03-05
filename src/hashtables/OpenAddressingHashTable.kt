@@ -85,9 +85,9 @@ abstract class OpenAddressingHashTable<T>(protected val size: Int)
     override fun getFillFactor() = count.toFloat() / realSize
 
     override fun toString() = hashArray
-            .filterNotNull()
+//            .filterNotNull()
 //            .map { it.second }
-            .map { it.second ?: "x" }
+            .map { it?.second ?: "|" }
             .joinToString(separator = "; ")
 
     /**
