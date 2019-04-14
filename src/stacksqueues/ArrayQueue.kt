@@ -13,7 +13,8 @@ class ArrayQueue(private val size: Int): Queue<Int> {
     override fun insert(element: Int) {
 
         if (isFull()) throw ArrayIndexOutOfBoundsException(
-                "Attempt to insert element into overloaded queue. Max size of queue = $size")
+                "Attempt to insert element into overloaded queue. Max size of queue = $size"
+        )
 
         if (rear == size - 1) rear = - 1
         array[++rear] = element

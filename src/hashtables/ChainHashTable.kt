@@ -10,15 +10,16 @@ package hashtables
  */
 class ChainHashTable<T>(val size: Int) : HashTable<Int, T> {
 
+    private val realSize = getNextPrimeNumber(size)
     // array of lists as items, each list is collection of pair (key, value)
     private val hashArray =
-            Array<MutableList<Pair<Int, T?>>>(getNextPrimeNumber(size)) {
+            Array<MutableList<Pair<Int, T?>>>(realSize) {
                 mutableListOf()
             }
 
     private var count: Int = 0
 
-    override fun hash(key: Int) = key % size
+    override fun hash(key: Int) = key % realSize
 
     override fun put(key: Int, value: T?) {
         count++
@@ -64,7 +65,7 @@ class ChainHashTable<T>(val size: Int) : HashTable<Int, T> {
     override fun getCount() = count
 
     // can be more than 1.0 for this table but recommended not more than 2.0
-    override fun getFillFactor() = count.toFloat() / size
+    override fun getFillFactor() = count.toFloat() / realSize
 
     override fun toString() = hashArray
             .joinToString(prefix = "{", postfix = "}", separator = "; ") { list ->
