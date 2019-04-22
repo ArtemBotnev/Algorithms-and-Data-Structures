@@ -8,10 +8,10 @@ import kotlin.math.log2
  *
  * Integer for keys used to simplify
  */
-class Heap (private val maxSize: Int) : PriorityQueue<Int> {
+open class Heap(private val maxSize: Int) : PriorityQueue<Int> {
 
-    private val heapArray = Array (maxSize) { 0 }
-    private var size = 0
+    protected val heapArray = Array (maxSize) { 0 }
+    protected var size = 0
 
     override fun insert(value: Int) {
         if (isFull()) throw ArrayIndexOutOfBoundsException(
@@ -41,33 +41,12 @@ class Heap (private val maxSize: Int) : PriorityQueue<Int> {
     override fun size() = size
 
     /**
-     * moves element up the heap until it value more than value its parent
-     *
-     * @param index - of element which should be moved
-     */
-    private fun moveUp(index: Int) {
-        val bottom = heapArray[index]
-        var currentIndex = index
-        var parentIndex = (index - 1) shr 1
-
-        while (currentIndex > 0
-                && heapArray[parentIndex] < bottom) {
-
-            heapArray[currentIndex] = heapArray[parentIndex]
-            currentIndex = parentIndex
-            parentIndex = (currentIndex - 1) shr 1
-        }
-
-        heapArray[currentIndex] = bottom
-    }
-
-    /**
      * moves element down the heap until it value less than value
      * its bigger child
      *
      * @param index - of element which should be moved
      */
-    private fun moveDown(index: Int) {
+    protected fun moveDown(index: Int) {
         val top = heapArray[index]
         var currentIndex = index
         var biggerChildIndex: Int
@@ -90,6 +69,27 @@ class Heap (private val maxSize: Int) : PriorityQueue<Int> {
         }
 
         heapArray[currentIndex] = top
+    }
+
+    /**
+     * moves element up the heap until it value more than value its parent
+     *
+     * @param index - of element which should be moved
+     */
+    private fun moveUp(index: Int) {
+        val bottom = heapArray[index]
+        var currentIndex = index
+        var parentIndex = (index - 1) shr 1
+
+        while (currentIndex > 0
+                && heapArray[parentIndex] < bottom) {
+
+            heapArray[currentIndex] = heapArray[parentIndex]
+            currentIndex = parentIndex
+            parentIndex = (currentIndex - 1) shr 1
+        }
+
+        heapArray[currentIndex] = bottom
     }
 
     private fun showHeapAsString(): String {

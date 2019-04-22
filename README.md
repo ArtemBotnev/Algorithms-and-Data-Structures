@@ -38,3 +38,7 @@
     * Double hash table 
 * Chain hash table 
 * examples of using
+### Heaps
+* Heap as implementation of priority queue
+* Extensions of heap for sorting
+* examples of using

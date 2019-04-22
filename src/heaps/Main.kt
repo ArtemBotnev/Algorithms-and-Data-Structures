@@ -12,6 +12,12 @@ fun main() {
         valueList.add(Random.nextInt(0, 200))
     }
 
+    testPriorityQueue(valueList)
+    println()
+    sort(valueList)
+}
+
+private fun testPriorityQueue(valueList: List<Int>) {
     println("Source list:\n ${valueList.showList()}")
 
     val priorityQueue = Heap(ELEMENTS_COUNT + 1)
@@ -28,6 +34,11 @@ fun main() {
     println("Elements extracted from the priority queue:\n" +
             " ${resultList.showList()}"
     )
+}
+
+private fun sort(valueList: List<Int>) {
+    val sortedArray = SortHeap(valueList.size).sort(valueList.toTypedArray())
+    println("Sorted list:\n ${sortedArray.toList().showList()}")
 }
 
 private fun <T> List<T>.showList() = this.joinToString(separator = ", ")

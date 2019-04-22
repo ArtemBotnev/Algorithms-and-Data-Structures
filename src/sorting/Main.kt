@@ -1,7 +1,9 @@
 package sorting
 
+import heaps.SortHeap
 import utils.Timer
 import java.util.*
+import kotlin.math.sign
 
 fun main(args: Array<String>) {
     // source arrays
@@ -39,6 +41,12 @@ fun main(args: Array<String>) {
     // apply Shell sort
     sort(array) { shellSort(it) }
     sort(bigArray) { shellSort(it) }
+
+    // apply Heap sort
+    println("Heap sort:")
+    sort(array) { SortHeap(it.size).sort(it) }
+    println("Heap sort:")
+    sort(bigArray) { SortHeap(it.size).sort(it) }
 }
 
 private inline fun <T> sort(arr: Array<T>, sortFin: (Array<T>) -> Array<T>) {
