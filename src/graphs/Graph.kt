@@ -1,11 +1,13 @@
 package graphs
 
+import java.util.Stack
+
 /**
  * Model of graph
  */
-class Graph(private val maxVertexCount: Int) {
+class Graph<T>(private val maxVertexCount: Int) {
 
-    private val vertexList = mutableListOf<Vertex>()
+    private val vertexList = mutableListOf<Vertex<T>>()
     private val adjMatrix =
             Array(maxVertexCount) { Array(maxVertexCount) { false } }
     private var currentVertexCount = 0
@@ -13,19 +15,19 @@ class Graph(private val maxVertexCount: Int) {
     /**
      * adds vertex with certain mark to graph
      *
-     * @param mark - mark of vertex which will be created
+     * @param value - value (any possible object type) of vertex which will be created
      * @return true if vertex was created and false
      * if the number of vertices for this graph has been exceeded
      * or vertex with this mark already is in list
      */
-    fun addVertex(mark: Char): Boolean {
+    fun addVertex(value: T): Boolean {
         val vertexIsAlreadyIn = vertexList
-                .map { it.mark }
-                .contains(mark)
+                .map { it.value }
+                .contains(value)
 
         return if (vertexList.count() < maxVertexCount && !vertexIsAlreadyIn) {
             currentVertexCount++
-            vertexList.add(Vertex(mark))
+            vertexList.add(Vertex(value))
         } else {
             false
         }
@@ -35,14 +37,14 @@ class Graph(private val maxVertexCount: Int) {
     /**
      * adds edge between two vertex
      *
-     * @param first - mark of first vertex in vertexList
-     * @param second - mark of second vertex in vertexList
-     * @return true if edge was successfully added and false if vertex with such mark doesn't exist
+     * @param first - value of first vertex in vertexList
+     * @param second - value of second vertex in vertexList
+     * @return true if edge was successfully added and false if vertex with such value doesn't exist
      */
-    fun addEdge(first: Char, second: Char): Boolean {
-        val marks = vertexList.map { it.mark }
-        val start = marks.indexOf(first)
-        val end = marks.indexOf(second)
+    fun addEdge(first: T, second: T): Boolean {
+        val values = vertexList.map { it.value }
+        val start = values.indexOf(first)
+        val end = values.indexOf(second)
 
         if (start < 0 || end < 0) return false
 
@@ -52,11 +54,61 @@ class Graph(private val maxVertexCount: Int) {
         return true
     }
 
-    override fun toString() = vertexList.joinToString(",") { it.mark.toString() }
+    /**
+     * Depth First Search function
+     *
+     * @param action - lambda what perform an action with vertex value
+     */
+    fun dfs(action: (T) -> Unit) {
+        val stack = Stack<Vertex<T>>()
+        // start with first vertex
+        val firstVertex = vertexList[0]
+        firstVertex.wasVisited = true
+        stack.push(firstVertex)
+        action(firstVertex.value)
+
+        while (!stack.empty()) {
+            val indexTopVertex = vertexList.indexOf(stack.peek())
+            val nextVertexIndex = getAdjUnvisitedVertex(indexTopVertex)
+
+            // remove vertex from stack if it has no adjacent unvisited vertex
+            if (nextVertexIndex < 0) {
+                stack.pop()
+            } else {
+                val nextVertex = vertexList[nextVertexIndex]
+                nextVertex.wasVisited = true
+                stack.push(nextVertex)
+                action(nextVertex.value)
+            }
+        }
+
+        // stack is empty flags reset
+        vertexList.forEach { it.wasVisited = false }
+    }
+
+    /**
+     * finds first not visited vertex, adjacent with current vertex
+     *
+     * @param firstIndex - index of current vertex in adjMatrix
+     * @return index of vertex which is not visited vertex, adjacent with current vertex
+     */
+    private fun getAdjUnvisitedVertex(firstIndex: Int): Int {
+        vertexList.forEachIndexed { secondIndex, vertex ->
+            if (adjMatrix[firstIndex][secondIndex] && !vertex.wasVisited) {
+                return secondIndex
+            }
+        }
+
+        return -1
+    }
+
+    override fun toString() = vertexList.joinToString(",") { it.value.toString() }
 
     /**
      * inner class graph's vertex
-     * char used as a mark of vertex
+     * container for any object type (value)
      */
-    private inner class Vertex(val mark: Char, var wasVisited: Boolean = false)
+    private inner class Vertex<T>(val value: T, var wasVisited: Boolean = false) {
+        override fun toString() = value.toString()
+    }
 }

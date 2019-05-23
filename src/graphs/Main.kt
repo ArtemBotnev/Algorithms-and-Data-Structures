@@ -1,7 +1,7 @@
 package graphs
 
 fun main() {
-    Graph(5).apply {
+    val graph = Graph<Char>(5).apply {
         addVertex('A')
         addVertex('B')
         addVertex('C')
@@ -10,7 +10,16 @@ fun main() {
         addVertex('C')
         addVertex('F')
         addVertex('G')
-    }.also {
-        print(it)
+    }.apply {
+        addEdge('A', 'B')
+        addEdge('A', 'C')
+        addEdge('B', 'D')
+        addEdge('D', 'E')
     }
+
+    println(graph)
+    println()
+
+    println("Depth First Search")
+    graph.dfs { print("visited $it; ") }
 }
