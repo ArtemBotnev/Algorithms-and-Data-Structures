@@ -1,6 +1,6 @@
 package graphs
 
-import java.util.Stack
+import java.util.*
 
 /**
  * Model of graph
@@ -83,6 +83,38 @@ class Graph<T>(private val maxVertexCount: Int) {
         }
 
         // stack is empty flags reset
+        vertexList.forEach { it.wasVisited = false }
+    }
+
+    /**
+     * Breadth First Search function
+     *
+     * @param action - lambda what perform an action with vertex value
+     */
+    fun bfs(action: (T) -> Unit) {
+        val queue = LinkedList<Vertex<T>>() as Queue<Vertex<T>>
+        // start with first vertex
+        val firstVertex = vertexList[0]
+        firstVertex.wasVisited = true
+        queue.add(firstVertex)
+        action(firstVertex.value)
+
+        var indexOfCurrentVertex: Int
+
+        while (!queue.isEmpty()) {
+            val indexOfPreviousVertex = vertexList.indexOf(queue.remove())
+
+            //while vertex has adjacent unvisited vertices
+            while (getAdjUnvisitedVertex(indexOfPreviousVertex).also { indexOfCurrentVertex = it } > -1) {
+                val currentVertex = vertexList[indexOfCurrentVertex]
+                currentVertex.wasVisited = true
+                // insert adjacent vertex to queue
+                queue.add(currentVertex)
+                action(currentVertex.value)
+            }
+        }
+
+        // queue is empty flags reset
         vertexList.forEach { it.wasVisited = false }
     }
 
