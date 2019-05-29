@@ -42,3 +42,9 @@
 * Heap as implementation of priority queue
 * Extensions of heap for sorting
 * examples of using
+### Graphs
+* Undirected graphs
+    * Depth first search
+    * Breadth first search
+    * Minimum spanning tree
+    * example of using

@@ -33,7 +33,6 @@ class Graph<T>(private val maxVertexCount: Int) {
         }
     }
 
-
     /**
      * adds edge between two vertex
      *
@@ -115,6 +114,39 @@ class Graph<T>(private val maxVertexCount: Int) {
         }
 
         // queue is empty flags reset
+        vertexList.forEach { it.wasVisited = false }
+    }
+
+    /**
+     * Minimum Spanning Tree function
+     * makes vertices connected with minimum edges count = vertices - 1
+     *
+     * @param action - lambda what perform an action with two bound vertices values
+     */
+    fun mst(action: (T, T) -> Unit) {
+        val stack = Stack<Vertex<T>>()
+        // start with first vertex
+        val firstVertex = vertexList[0]
+        firstVertex.wasVisited = true
+        stack.push(firstVertex)
+
+        while (!stack.empty()) {
+            val currentVertex = stack.peek()
+            val indexTopVertex = vertexList.indexOf(currentVertex)
+            val nextVertexIndex = getAdjUnvisitedVertex(indexTopVertex)
+
+            // remove vertex from stack if it has no adjacent unvisited vertex
+            if (nextVertexIndex < 0) {
+                stack.pop()
+            } else {
+                val nextVertex = vertexList[nextVertexIndex]
+                nextVertex.wasVisited = true
+                stack.push(nextVertex)
+                action(currentVertex.value, nextVertex.value)
+            }
+        }
+
+        // stack is empty flags reset
         vertexList.forEach { it.wasVisited = false }
     }
 
