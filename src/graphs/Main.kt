@@ -9,7 +9,7 @@ fun main() {
 
 private fun firstSearchAlgorithms() {
     // create and fill graph
-    val graph = Graph<Char>(GRAPH_MAX_SIZE).apply {
+    val graph = UndirectedGraph<Char>(GRAPH_MAX_SIZE).apply {
         addVertex('A')
         addVertex('B')
         addVertex('C')
@@ -45,7 +45,7 @@ private fun firstSearchAlgorithms() {
 
 private fun minimumSpanningTree() {
     println()
-    val graph = Graph<Char>(GRAPH_MAX_SIZE).apply {
+    val graph = UndirectedGraph<Char>(GRAPH_MAX_SIZE).apply {
         addVertex('A')
         addVertex('B')
         addVertex('C')
