@@ -48,3 +48,6 @@
     * Breadth first search
     * Minimum spanning tree
     * example of using
+* Directed graphs
+    * Topological sorting
+    * example of using    
