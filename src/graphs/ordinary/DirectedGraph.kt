@@ -1,4 +1,6 @@
-package graphs
+package graphs.ordinary
+
+import graphs.Graph
 
 /**
  * Model of directed graph

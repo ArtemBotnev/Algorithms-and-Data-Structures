@@ -1,5 +1,6 @@
-package graphs
+package graphs.ordinary
 
+import graphs.Graph
 import java.util.*
 
 /**

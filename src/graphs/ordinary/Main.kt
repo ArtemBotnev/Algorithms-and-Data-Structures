@@ -1,4 +1,6 @@
-package graphs
+package graphs.ordinary
+
+import utils.Timer
 
 private const val GRAPH_MAX_SIZE = 8
 
@@ -35,15 +37,22 @@ private fun firstSearchAlgorithms() {
         addEdge('C', 'G')
     }
 
+    val timer = Timer()
     println("Graph with vertices: $graph")
 
     println("Depth First Search")
+    timer.start()
     graph.dfs { print("visited $it ") }
+    println()
+    println(timer.stopAndShowTime())
 
     println()
 
     println("Breadth First Search")
+    timer.start()
     graph.bfs { print("visited $it ") }
+    println()
+    println(timer.stopAndShowTime())
 }
 
 private fun minimumSpanningTree() {
@@ -66,11 +75,15 @@ private fun minimumSpanningTree() {
         addEdge('E', 'F')
     }
 
+    val timer = Timer()
     println()
     println("Graph with vertices: $graph")
 
     println("Minimum Spanning Tree")
+    timer.start()
     graph.mst { first, second -> print("$first-$second ") }
+    println()
+    println(timer.stopAndShowTime())
 }
 
 private fun topologicalSorting() {
@@ -90,11 +103,15 @@ private fun topologicalSorting() {
         addEdge('C', 'F')
     }
 
+    val timer = Timer()
     println()
     println("Graph with vertices: $graph")
 
     println("Topological sorting")
+    timer.start()
     graph.ts { print("vertex $it ") }
+    println()
+    println(timer.stopAndShowTime())
 
     // make graph cyclical and get exception
     println()
