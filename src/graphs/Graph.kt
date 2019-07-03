@@ -5,8 +5,6 @@ package graphs
  */
 abstract class Graph<T>(private val maxVertexCount: Int) {
     protected val vertexList = mutableListOf<Vertex<T>>()
-    protected val adjMatrix =
-            Array(maxVertexCount) { Array(maxVertexCount) { false } }
     private var currentVertexCount = 0
 
     /**
@@ -29,15 +27,6 @@ abstract class Graph<T>(private val maxVertexCount: Int) {
             false
         }
     }
-
-    /**
-     * adds edge between two vertex
-     *
-     * @param first - value of first vertex in vertexList
-     * @param second - value of second vertex in vertexList
-     * @return true if edge was successfully added and false if vertex with such value doesn't exist
-     */
-    abstract fun addEdge(first: T, second: T): Boolean
 
     override fun toString() = vertexList.joinToString(",") { it.value.toString() }
 

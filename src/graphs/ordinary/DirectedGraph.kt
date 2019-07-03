@@ -1,11 +1,9 @@
 package graphs.ordinary
 
-import graphs.Graph
-
 /**
  * Model of directed graph
  */
-class DirectedGraph<T>(maxVertexCount: Int) : Graph<T>(maxVertexCount) {
+class DirectedGraph<T>(maxVertexCount: Int) : OrdinaryGraph<T>(maxVertexCount) {
 
     override fun addEdge(first: T, second: T): Boolean {
         val values = vertexList.map { it.value }

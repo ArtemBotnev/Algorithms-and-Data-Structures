@@ -1,12 +1,11 @@
 package graphs.ordinary
 
-import graphs.Graph
 import java.util.*
 
 /**
  * Model of undirected graph
  */
-class UndirectedGraph<T>(maxVertexCount: Int) : Graph<T>(maxVertexCount) {
+class UndirectedGraph<T>(maxVertexCount: Int) : OrdinaryGraph<T>(maxVertexCount) {
 
     override fun addEdge(first: T, second: T): Boolean {
         val values = vertexList.map { it.value }
