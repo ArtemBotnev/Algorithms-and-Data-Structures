@@ -5,7 +5,7 @@ package graphs
  */
 abstract class Graph<T>(private val maxVertexCount: Int) {
     protected val vertexList = mutableListOf<Vertex<T>>()
-    private var currentVertexCount = 0
+    protected var currentVertexCount = 0
 
     /**
      * adds vertex with certain mark to graph
@@ -31,10 +31,10 @@ abstract class Graph<T>(private val maxVertexCount: Int) {
     override fun toString() = vertexList.joinToString(",") { it.value.toString() }
 
     /**
-     * inner class graph's vertex
+     * class graph's vertex
      * container for any object type (value)
      */
-    protected inner class Vertex<T>(val value: T, var wasVisited: Boolean = false) {
+    class Vertex<T>(val value: T, var wasVisited: Boolean = false) {
         override fun toString() = value.toString()
     }
 }
