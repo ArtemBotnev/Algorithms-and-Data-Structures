@@ -2,8 +2,15 @@ package graphs.weighted
 
 import utils.Timer
 
+private const val GRAPH_MAX_SIZE = 10
+private const val INFINITY = 10_000L
+
 fun main() {
-    val graph = UndirectedWeightGraph<Char>(10, 10_000).apply {
+    minimumSpanningTree()
+}
+
+private fun minimumSpanningTree() {
+    val graph = UndirectedWeightedGraph<Char>(GRAPH_MAX_SIZE, INFINITY).apply {
         addVertex('A')
         addVertex('B')
         addVertex('C')

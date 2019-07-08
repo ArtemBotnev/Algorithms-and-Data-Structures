@@ -23,6 +23,9 @@ abstract class WeightedGraph<T>(maxVertexCount: Int, protected val infinity: Lon
      */
     abstract fun addEdge(first: T, second: T, weight: Long): Boolean
 
+    /**
+     * Represents edge between two vertex and weight of this edge
+     */
     protected class Edge<T>(val from: Vertex<T>, val to: Vertex<T>, val weight: Long)
         : Comparable<Edge<T>> {
         override fun compareTo(other: Edge<T>) = this.weight.compareTo(other.weight)

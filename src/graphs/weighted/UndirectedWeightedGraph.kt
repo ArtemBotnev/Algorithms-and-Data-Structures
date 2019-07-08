@@ -3,7 +3,10 @@ package graphs.weighted
 import java.util.*
 import kotlin.collections.HashMap
 
-class UndirectedWeightGraph<T>(maxVertexCount: Int, infinity: Long)
+/**
+ * Model of undirected weighted graph
+ */
+class UndirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
     : WeightedGraph<T>(maxVertexCount, infinity) {
 
     override fun addEdge(first: T, second: T, weight: Long): Boolean {
@@ -19,14 +22,23 @@ class UndirectedWeightGraph<T>(maxVertexCount: Int, infinity: Long)
         return true
     }
 
+    /**
+     * Minimum Spanning Tree of Weighted graph function
+     * makes vertices connected with minimum edges count = vertices - 1
+     *
+     * @param action - lambda what perform an action with two bound vertices values
+     * and weight between them
+     */
     fun mstw(action: (T?, T?, Long) -> Unit) {
+        // priority queue of graph vertices
         val pQueue = PriorityQueue<Edge<T>>(currentVertexCount)
+        // map - contains info if particular vertex has already bound in MST or not
         val wasBoundMap = HashMap<Vertex<T>, Boolean>(currentVertexCount)
+        // count of vertices added in MST
         var addedVerticesCount = 0
         var currentVertex: Vertex<T> = vertexList[0]
-        wasBoundMap[currentVertex] = false
 
-        // fill visit map
+        // fill connectivity map
         vertexList.forEach { wasBoundMap[it] = false }
 
         while (addedVerticesCount < currentVertexCount - 1) {
@@ -42,6 +54,7 @@ class UndirectedWeightGraph<T>(maxVertexCount: Int, infinity: Long)
                 if (weight >= infinity) continue
 
                 val destinationVertex = vertexList[i]
+                // create edge and put it in queue
                 pQueue.add(Edge(currentVertex, destinationVertex, weight))
             }
 
@@ -53,6 +66,7 @@ class UndirectedWeightGraph<T>(maxVertexCount: Int, infinity: Long)
 
             var minWeightEdge: Edge<T>
             do {
+                // get edge with min weight
                 minWeightEdge = pQueue.remove()
                 // check if this vertex has already bound and skip it
             } while (wasBoundMap[minWeightEdge.to]!!)
@@ -61,6 +75,7 @@ class UndirectedWeightGraph<T>(maxVertexCount: Int, infinity: Long)
 
             val vertexFrom = minWeightEdge.from
             currentVertex = minWeightEdge.to
+
             action(vertexFrom.value, currentVertex.value, minWeightEdge.weight)
         }
 

@@ -43,11 +43,16 @@
 * Extensions of heap for sorting
 * examples of using
 ### Graphs
-* Undirected graphs
-    * Depth first search
-    * Breadth first search
-    * Minimum spanning tree
-    * example of using
-* Directed graphs
-    * Topological sorting
-    * example of using    
+* Ordinary graphs
+    * Undirected graphs
+        * Depth first search
+        * Breadth first search
+        * Minimum spanning tree
+        * example of using
+    * Directed graphs
+        * Topological sorting
+        * example of using
+* Weighted graphs
+    * Undirected graphs
+          * Minimum spanning tree
+          * example of using          
