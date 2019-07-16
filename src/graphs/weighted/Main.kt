@@ -10,6 +10,11 @@ fun main() {
 }
 
 private fun minimumSpanningTree() {
+//    undirected()
+      directed()
+}
+
+private fun undirected() {
     val graph = UndirectedWeightedGraph<Char>(GRAPH_MAX_SIZE, INFINITY).apply {
         addVertex('A')
         addVertex('B')
@@ -38,4 +43,30 @@ private fun minimumSpanningTree() {
         println("$from-($weight)-$to")
     }
     println(timer.stopAndShowTime())
+}
+
+private fun directed() {
+    val graph = DirectedWeightedGraph<Char>(GRAPH_MAX_SIZE, INFINITY).apply {
+        addVertex('A')
+        addVertex('B')
+        addVertex('C')
+        addVertex('D')
+        addVertex('E')
+        addVertex('F')
+        addVertex('J')
+
+        addEdge('A', 'B', 2)
+        addEdge('A', 'C', 8)
+        addEdge('B', 'D', 5)
+        addEdge('C', 'E', 9)
+        addEdge('B', 'J', 10_001)
+        addEdge('D', 'J', 4)
+        addEdge('C', 'J', 1)
+        addEdge('E', 'J', 7)
+        addEdge('D', 'E', 1)
+        addEdge('D', 'F', 5)
+        addEdge('C', 'F', 6)
+    }
+
+    graph.shortestPath('A') { println(it) }
 }
