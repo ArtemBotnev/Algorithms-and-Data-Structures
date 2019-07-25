@@ -82,4 +82,12 @@ class UndirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
         // flags reset
         vertexList.forEach { it.wasVisited = false }
     }
+
+    /**
+     * Represents edge between two vertex and weight of this edge
+     */
+    private class Edge<T>(val from: Vertex<T>, val to: Vertex<T>, val weight: Long)
+        : Comparable<Edge<T>> {
+        override fun compareTo(other: Edge<T>) = this.weight.compareTo(other.weight)
+    }
 }

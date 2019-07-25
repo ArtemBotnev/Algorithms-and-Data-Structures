@@ -11,7 +11,9 @@ fun main() {
 
 private fun minimumSpanningTree() {
 //    undirected()
-      directed()
+    val timer = Timer().apply { start() }
+    directed()
+    println(timer.stopAndShowTime())
 }
 
 private fun undirected() {
@@ -55,18 +57,21 @@ private fun directed() {
         addVertex('F')
         addVertex('J')
 
-        addEdge('A', 'B', 2)
-        addEdge('A', 'C', 8)
-        addEdge('B', 'D', 5)
-        addEdge('C', 'E', 9)
-        addEdge('B', 'J', 10_001)
-        addEdge('D', 'J', 4)
-        addEdge('C', 'J', 1)
-        addEdge('E', 'J', 7)
-        addEdge('D', 'E', 1)
-        addEdge('D', 'F', 5)
-        addEdge('C', 'F', 6)
+        addEdge('A', 'B', 8)
+        addEdge('A', 'J', 1)
+        addEdge('B', 'E', 5)
+        addEdge('C', 'A', 3)
+        addEdge('C', 'J', 10)
+        addEdge('D', 'B', 4)
+        addEdge('E', 'C', 3)
+        addEdge('E', 'F', 6)
+        addEdge('F', 'A', 7)
+        addEdge('F', 'D', 3)
+        addEdge('J', 'D', 2)
     }
 
-    graph.shortestPath('A') { println(it) }
+//    graph.shortestPath('A') { println(it) }
+//    graph.shortestPath('B') { println(it) }
+//    graph.shortestPath('C') { println(it) }
+    graph.shortestPath('D') { println(it) }
 }
