@@ -1,7 +1,5 @@
 package graphs.weighted
 
-import java.lang.StringBuilder
-
 /**
  * Model of directed weighted graph
  */
@@ -25,11 +23,11 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
      * Dijkstra’s algorithm
      *
      * @param from - the value of the vertex from which the path should begin
-     * @param report - lambda that takes string report of shortest paths
+     * @param result - lambda that takes list of Pair which represent shortest paths
      * @throws NotSuchVertexException - in case the vertex with value @from hasn't been found
      */
     @Throws(NotSuchVertexException::class)
-    fun shortestPath(from: T, report: (String) -> Unit) {
+    fun shortestPath(from: T, result: (List<Pair<List<T>, Long>>?) -> Unit) {
         // list of all paths from start vertex
         val pathList = mutableListOf<Path<T>>()
         val startVertexIndex = vertexList.map { it.value }.indexOf(from)
@@ -44,7 +42,7 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
         for (i in 0 until currentVertexCount) {
             val weight = adjMatrix[startVertexIndex][i]
             // add new path from start vertex to list
-            pathList.add(Path(parentVertex, weight))
+            pathList.add(Path(parentVertex, vertexList[i].value, weight))
         }
 
         // till all vertices will be visited
@@ -53,7 +51,7 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
             val shortestPath = pathList[shortestPathIndex]
 
             if (shortestPath.weight >= infinity) {
-                report("There are unreachable vertices in the graph")
+                result(null)
                 break
             } else {
                 // assign vertex that is start of shortest path as parent vertex
@@ -68,10 +66,10 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
         // flags reset
         vertexList.forEach { it.wasVisited = false }
 
-        // building report
-        val stringBuilder = StringBuilder()
-        pathList.forEach { stringBuilder.append(it.toString() + "\n") }
-        report(stringBuilder.toString())
+        // building result
+        // exclude path start vertex to itself
+        pathList.removeAt(startVertexIndex)
+        result(pathList.map { it.report() })
     }
 
     /**
@@ -137,9 +135,11 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
      * Represents shortest path from start vertex to vertex in the graph
      *
      * @param startVertex - vertex from that path is beginning
+     * @param destination - destination vertex value
      * @param weight - summary weight from startVertex to vertex of this Path
      */
-    private class Path<T>(startVertex: Vertex<T>, var weight: Long) {
+    private inner class Path<T>(private val startVertex: Vertex<T>, private val destination: T, var weight: Long) {
+
         val pathPoints = mutableListOf<Vertex<T>>()
         private var currentVertex: Vertex<T>
 
@@ -148,7 +148,7 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
         }
 
         /**
-         * add new vertex through which the path lies
+         * adds new vertex through which the path lies
          */
         fun addVertex(vertex: Vertex<T>) {
             currentVertex = vertex
@@ -156,7 +156,7 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
         }
 
         /**
-         * add all previous vertices through which the path lies
+         * adds all previous vertices through which the path lies
          */
         fun addVertices(vertices: List<Vertex<T>>) {
             vertices.forEach {
@@ -164,8 +164,19 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
             }
         }
 
-        override fun toString(): String {
-            return pathPoints.joinToString("/") + weight
+        /**
+         * converts Path to Pair<List<T>, Long> - all vertices through which the path lies
+         * and its weight
+         */
+        fun report(): Pair<List<T>, Long> {
+            val res = mutableListOf(startVertex.value)
+                    .apply { addAll(pathPoints.map { it.value }) }
+                    .apply { add(destination) }
+
+            return res to weight
         }
+
+        override fun toString() ="$startVertex->${pathPoints.joinToString("") { "$it->" } }" +
+                "$destination $weight"
     }
 }
