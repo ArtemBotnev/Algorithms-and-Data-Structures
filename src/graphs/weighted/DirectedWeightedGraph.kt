@@ -23,11 +23,11 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
      * Dijkstra’s algorithm
      *
      * @param from - the value of the vertex from which the path should begin
-     * @param result - lambda that takes list of Pair which represent shortest paths
+     * @return list of Pair which represent shortest paths
      * @throws NotSuchVertexException - in case the vertex with value @from hasn't been found
      */
     @Throws(NotSuchVertexException::class)
-    fun shortestPath(from: T, result: (List<Pair<List<T>, Long>>?) -> Unit) {
+    fun shortestPath(from: T): List<Pair<List<T>, Long>>? {
         // list of all paths from start vertex
         val pathList = mutableListOf<Path<T>>()
         val startVertexIndex = vertexList.map { it.value }.indexOf(from)
@@ -51,8 +51,7 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
             val shortestPath = pathList[shortestPathIndex]
 
             if (shortestPath.weight >= infinity) {
-                result(null)
-                break
+                return null
             } else {
                 // assign vertex that is start of shortest path as parent vertex
                 parentVertex = vertexList[shortestPathIndex]
@@ -69,7 +68,8 @@ class DirectedWeightedGraph<T>(maxVertexCount: Int, infinity: Long)
         // building result
         // exclude path start vertex to itself
         pathList.removeAt(startVertexIndex)
-        result(pathList.map { it.report() })
+
+        return pathList.map { it.report() }
     }
 
     /**

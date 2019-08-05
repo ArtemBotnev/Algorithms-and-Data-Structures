@@ -6,17 +6,11 @@ private const val GRAPH_MAX_SIZE = 10
 private const val INFINITY = 10_000L
 
 fun main() {
-    minimumSpanningTree()
+    undirectedWeightedMST()
+    directedWeightedShortest()
 }
 
-private fun minimumSpanningTree() {
-//    undirected()
-    val timer = Timer().apply { start() }
-    directed()
-    println(timer.stopAndShowTime())
-}
-
-private fun undirected() {
+private fun undirectedWeightedMST() {
     val graph = UndirectedWeightedGraph<Char>(GRAPH_MAX_SIZE, INFINITY).apply {
         addVertex('A')
         addVertex('B')
@@ -40,22 +34,21 @@ private fun undirected() {
         addEdge('C', 'F', 6)
     }
 
+    println()
+    println("Graph with vertices: $graph")
+    println("Minimum Spanning Tree of weighted graph")
     val timer = Timer().apply { start() }
     graph.mstw {from, to, weight ->
         println("$from-($weight)-$to")
     }
     println(timer.stopAndShowTime())
+    println()
 }
 
-private fun directed() {
+private fun directedWeightedShortest() {
+    val vertices = arrayOf('A', 'B', 'C', 'D', 'E', 'F', 'J')
     val graph = DirectedWeightedGraph<Char>(GRAPH_MAX_SIZE, INFINITY).apply {
-        addVertex('A')
-        addVertex('B')
-        addVertex('C')
-        addVertex('D')
-        addVertex('E')
-        addVertex('F')
-        addVertex('J')
+        vertices.forEach { addVertex(it) }
 
         addEdge('A', 'B', 8)
         addEdge('A', 'J', 1)
@@ -70,8 +63,25 @@ private fun directed() {
         addEdge('J', 'D', 2)
     }
 
-//    graph.shortestPath('A') { println(it) }
-//    graph.shortestPath('B') { println(it) }
-//    graph.shortestPath('C') { println(it) }
-    graph.shortestPath('D') { println(it) }
+    println("Directed weighted graph with vertices: $graph")
+    println("Shortest paths:")
+    println()
+
+    val timer = Timer()
+    vertices.forEach { findShortestPathsFrom(graph, it, timer) }
+}
+
+private fun <T> findShortestPathsFrom(graph: DirectedWeightedGraph<T>, vertex: T, timer: Timer) {
+    println("shortest paths from vertex $vertex:")
+    timer.start()
+
+    val paths = graph.shortestPath(vertex)
+    paths?.run {
+        forEach { pair ->
+            println("path: ${pair.first.joinToString("->")} sum: ${pair.second}")
+        }
+    } ?: println("There are some unreachable vertices in the graph")
+
+    println(timer.stopAndShowTime())
+    println()
 }

@@ -54,5 +54,8 @@
         * example of using
 * Weighted graphs
     * Undirected graphs
-          * Minimum spanning tree
-          * example of using          
+         * Minimum spanning tree
+         * example of using
+    * Directed graphs
+         * Search of the shortest path
+         * example of using                
